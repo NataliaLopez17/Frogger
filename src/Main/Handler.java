@@ -1,7 +1,7 @@
 package Main;
 
-import Game.Entities.Dynamic.Player;
 import Game.Entities.EntityManager;
+import Game.Entities.Dynamic.Player;
 import Game.World.WorldManager;
 import Input.KeyManager;
 import Input.MouseManager;
@@ -39,6 +39,7 @@ public class Handler {
     public void setGame(GameSetUp game) {
         this.game = game;
     }
+
 
     public KeyManager getKeyManager(){
         return game.getKeyManager();

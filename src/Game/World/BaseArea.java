@@ -2,6 +2,7 @@ package Game.World;
 
 import java.awt.Graphics;
 
+import Game.Entities.EntityManager;
 import Main.Handler;
 
 public class BaseArea {
@@ -10,6 +11,8 @@ public class BaseArea {
     int yPosition;
 
     boolean canStepOn = true;
+
+	private EntityManager entityManager;
 
     /*
      * Constructs the yPosition of the Tile.
@@ -22,6 +25,10 @@ public class BaseArea {
     public void tick(){
 
     }
+    
+    public EntityManager getEntityManager() {
+		return entityManager;
+	}
     
     // Draws the tile.
     public void render(Graphics g) {

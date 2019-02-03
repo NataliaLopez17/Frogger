@@ -9,6 +9,7 @@ import Resources.Images;
 public class Log extends StaticBase {
 
     private Rectangle log;
+    //private Rectangle ramenLog;
 	
     public Log(Handler handler,int xPosition, int yPosition) {
         super(handler);

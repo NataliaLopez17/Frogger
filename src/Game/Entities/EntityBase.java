@@ -1,20 +1,30 @@
 package Game.Entities;
 
-import Main.Handler;
+import java.awt.Graphics;
+import java.awt.Rectangle;
 
-import java.awt.*;
+import Main.Handler;
 
 public class EntityBase {
 
 
     Handler handler;
     private int height=64,width=64,x,y;
+    protected Rectangle bounds;
 
 
     public EntityBase( Handler handler) {
         this.handler = handler;
+        
+        bounds = new Rectangle(0, 0, width,height);
+
     }
 
+
+    public Rectangle getCollisionBounds(float xOffset, float yOffset){
+        return new Rectangle((int) (x + bounds.x + xOffset), (int) (y + bounds.y + yOffset), bounds.width, bounds.height);
+    }
+    
     public void tick(){
 
     }
