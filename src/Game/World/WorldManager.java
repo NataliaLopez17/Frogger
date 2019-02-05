@@ -9,7 +9,6 @@ import Game.Entities.Static.LillyPad;
 import Game.Entities.Static.Log;
 import Game.Entities.Static.RamenLog;
 import Game.Entities.Static.StaticBase;
-import Game.Entities.Static.Tree;
 import Game.Entities.Static.Turtle;
 import Main.Handler;
 import UI.UIManager;
@@ -58,7 +57,6 @@ public class WorldManager {
 
 		StaticEntitiesAvailables.add(new LillyPad(handler, 0, 0));
 		StaticEntitiesAvailables.add(new Log(handler, 0, 0));
-		StaticEntitiesAvailables.add(new Tree(handler));
 		StaticEntitiesAvailables.add(new Turtle(handler, 0, 0));
 		StaticEntitiesAvailables.add(new RamenLog(handler, 0, 0));
 
@@ -132,7 +130,6 @@ public class WorldManager {
 		}
 
 
-
 		for (int i = 0; i < SpawnedAreas.size(); i++) {
 			SpawnedAreas.get(i).setYPosition(SpawnedAreas.get(i).getYPosition() + movementSpeed);
 
@@ -156,6 +153,12 @@ public class WorldManager {
 
 		object2.tick();
 
+		//		trying to see if when the frog went past the screen it would turn, but it has error
+		
+		//		if(handler.getPlayer().getX() > handler.getWidth()) {
+		//			player.setX(player.getX() - 2);
+		//		}
+
 	}
 
 	private void HazardMovement() {
@@ -177,12 +180,22 @@ public class WorldManager {
 					player.setX(player.getX() + 1);
 				}
 
+//				would this work for the ramen??
+				
+				if (SpawnedHazards.get(i).GetCollision() != null
+						&& player.getPlayerCollision().intersects(SpawnedHazards.get(i).GetCollision())) {
+					player.setY(player.getY() - 2);
+										
+				}
+
 			}
 
 			// if hazard has passed the screen height, then remove this hazard.
 			if (SpawnedHazards.get(i).getY() > handler.getHeight()) {
 				SpawnedHazards.remove(i);
 			}
+
+
 		}
 	}
 
@@ -222,6 +235,10 @@ public class WorldManager {
 		}
 		else if(randomArea instanceof WaterArea) {
 			randomArea = new WaterArea(handler, yPosition);
+
+			randInt = 64 * rand.nextInt(2);
+			SpawnedHazards.add(new LillyPad(handler, randInt, yPosition));
+
 			SpawnHazard(yPosition);
 		}
 		else {
@@ -231,7 +248,7 @@ public class WorldManager {
 	}
 
 	/*
-	 * Given a yPositionm this method will add a new hazard to the SpawnedHazards ArrayList
+	 * Given a yPosition this method will add a new hazard to the SpawnedHazards ArrayList
 	 */
 	private void SpawnHazard(int yPosition) {
 		Random rand = new Random();
@@ -245,6 +262,8 @@ public class WorldManager {
 		else if (choice >=6){
 			randInt = 64 * rand.nextInt(9);
 			SpawnedHazards.add(new LillyPad(handler, randInt, yPosition));
+
+			//if(SpawnedHazards.contains(handler.getEntityManager().getEntityList().))
 		}
 		else{
 			randInt = 64 * rand.nextInt(3);
