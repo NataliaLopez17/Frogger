@@ -1,6 +1,7 @@
 package Game.World;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -27,7 +28,10 @@ public class WorldManager {
 
 	private ArrayList<BaseArea> SpawnedAreas;				// Areas currently on world
 	private ArrayList<StaticBase> SpawnedHazards;			// Hazards currently on world.
-
+	
+	
+	private ArrayList<RamenLog> ramenLogList;		//THIS WAS ADDED
+	
 	Long time;
 	Boolean reset = true;
 
@@ -62,7 +66,8 @@ public class WorldManager {
 
 		SpawnedAreas = new ArrayList<>();
 		SpawnedHazards = new ArrayList<>();
-
+		//ramenLogList.add(new RamenLog(handler, 0, 0));				//THIS WAS ADDED
+		
 		player = new Player(handler);       
 
 		gridWidth = handler.getWidth()/64;
@@ -75,7 +80,7 @@ public class WorldManager {
 		 *  To understand this, go down to randomArea(int yPosition) 
 		 */
 		for(int i=0; i<gridHeight+2; i++) {
-			SpawnedAreas.add(randomArea((-2+i)*64));
+			SpawnedAreas.add(randomArea((-2+i)*64)); //idea*
 		}
 
 		player.setX((gridWidth/2)*64);
@@ -153,14 +158,17 @@ public class WorldManager {
 
 		object2.tick();
 
-		//		trying to see if when the frog went past the screen it would turn, but it has error
 		
-		//		if(handler.getPlayer().getX() > handler.getWidth()) {
-		//			player.setX(player.getX() - 2);
-		//		}
 
 	}
-
+	
+	
+	private void RamenLogCollision () { 						//THIS WAS ADDED
+		
+		
+	}	
+	
+	
 	private void HazardMovement() {
 
 		for (int i = 0; i < SpawnedHazards.size(); i++) {
@@ -180,14 +188,16 @@ public class WorldManager {
 					player.setX(player.getX() + 1);
 				}
 
-//				would this work for the ramen??
+
+					
 				
+					
 				if (SpawnedHazards.get(i).GetCollision() != null
 						&& player.getPlayerCollision().intersects(SpawnedHazards.get(i).GetCollision())) {
-					player.setY(player.getY() - 2);
+					player.setY(player.getY() );
 										
 				}
-
+				
 			}
 
 			// if hazard has passed the screen height, then remove this hazard.
@@ -236,9 +246,15 @@ public class WorldManager {
 		else if(randomArea instanceof WaterArea) {
 			randomArea = new WaterArea(handler, yPosition);
 
-			randInt = 64 * rand.nextInt(2);
+			randInt = 64 * rand.nextInt(10);
 			SpawnedHazards.add(new LillyPad(handler, randInt, yPosition));
 
+			randInt = 64 * rand.nextInt(10); //prev was 3
+			SpawnedHazards.add(new Turtle(handler, randInt, yPosition)); //THIS MAY BE CAUSING OVERLAP
+			
+			randInt = 64 * rand.nextInt(10); //prev was 3
+			SpawnedHazards.add(new Log(handler, randInt, yPosition)); //THIS MAY BE CAUSING OVERLAP
+			
 			SpawnHazard(yPosition);
 		}
 		else {
@@ -253,20 +269,20 @@ public class WorldManager {
 	private void SpawnHazard(int yPosition) {
 		Random rand = new Random();
 		int randInt;
-		int choice = rand.nextInt(12);
+		int choice = rand.nextInt(3); //prev was 12
 		// Chooses between Log or Lillypad
-		if (choice <=3) {
-			randInt = 64 * rand.nextInt(4);
+		if (choice ==1) { //prev was <=3
+			randInt = 64 * rand.nextInt(5); //prev was 4
 			SpawnedHazards.add(new Log(handler, randInt, yPosition));
 		}
-		else if (choice >=6){
-			randInt = 64 * rand.nextInt(9);
+		else if (choice ==2){ //prev was >=6
+			randInt = 64 * rand.nextInt(10);
 			SpawnedHazards.add(new LillyPad(handler, randInt, yPosition));
 
 			//if(SpawnedHazards.contains(handler.getEntityManager().getEntityList().))
 		}
 		else{
-			randInt = 64 * rand.nextInt(3);
+			randInt = 64 * rand.nextInt(5); //prev was 3
 			SpawnedHazards.add(new Turtle(handler, randInt, yPosition));
 		}
 	}
