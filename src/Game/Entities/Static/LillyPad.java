@@ -21,7 +21,7 @@ public class LillyPad extends StaticBase {
     @Override
     public void render(Graphics g) {
     	
-    	g.drawImage(Images.lilly, this.getX()+2, this.getY(), 64, 64, null);
+    	g.drawImage(Images.pancakeLillyPad, this.getX()+2, this.getY(), 64, 64, null);
     	lillypad = new Rectangle(this.getX(), this.getY()+5, 64, 55);
 
     }

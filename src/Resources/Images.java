@@ -44,7 +44,8 @@ public class Images {
 	public static BufferedImage log;
 	public static BufferedImage ramenLog;
 	public static BufferedImage grass;
-
+	public static BufferedImage pancakeLillyPad;
+	
 	public static BufferedImage[] object;
 
 
@@ -64,6 +65,7 @@ public class Images {
 			WaterSheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/water.png")));
 
 			ramenLog = ImageIO.read(getClass().getResourceAsStream("/Sheets/ramen.png"));
+			pancakeLillyPad = ImageIO.read(getClass().getResourceAsStream("/Sheets/newlilypad.png"));
 
 			title = ImageIO.read(getClass().getResourceAsStream("/Sheets/Frogger2.png"));
 			Pause = ImageIO.read(getClass().getResourceAsStream("/Buttons/Pause.png"));
