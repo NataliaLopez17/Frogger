@@ -44,11 +44,6 @@ public class Player extends EntityBase {
 			move();
 		}
 
-		//this don't work. trying to make the intersection chiz
-		if (!moving && RamenLog.ramenLog.getBounds().intersects(getPlayerCollision())) {
-			moving = false;
-		}
-
 	}
 
 	private void reGrid() {
@@ -62,7 +57,7 @@ public class Player extends EntityBase {
 		}
 	}
 
-	private void move() {
+	public void move() {
 		if (moveCoolDown < 25) {
 			moveCoolDown++;
 		}
