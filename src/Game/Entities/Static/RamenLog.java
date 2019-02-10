@@ -22,7 +22,7 @@ public class RamenLog extends StaticBase {
     public void render(Graphics g) {
     	
     	g.drawImage(Images.ramenLog, this.getX(), this.getY(), 64, 64, null);
-    	ramenLog = new Rectangle(this.getX(), this.getY(), 64, 55);
+    	ramenLog = new Rectangle(this.getX(), this.getY()+5, 64, 55);
 
     }
     

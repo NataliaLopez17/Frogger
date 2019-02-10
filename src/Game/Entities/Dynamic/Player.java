@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 
 import Game.Entities.EntityBase;
 import Game.Entities.Static.RamenLog;
+import Game.World.ID;
 import Main.Handler;
 import Resources.Images;
 
@@ -19,8 +20,8 @@ public class Player extends EntityBase {
 
 	
 	private Rectangle player;
-	private String facing = "UP";
-	private Boolean moving = false;
+	public static String facing = "UP";
+	public static Boolean moving = false;
 	private int moveCoolDown = 0;
 
 	private int index = 0;
@@ -131,7 +132,7 @@ public class Player extends EntityBase {
 		}
 	}
 
-	private void animateMovement() {
+	public void animateMovement() {
 		if (index == 8) {
 			moving = false;
 			index = 0;
