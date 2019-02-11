@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 
 import Game.Entities.EntityBase;
 import Game.Entities.Static.RamenLog;
+import Game.GameStates.State;
 import Game.World.ID;
 import Main.Handler;
 import Resources.Images;
@@ -141,6 +142,7 @@ public class Player extends EntityBase {
 		index++;
 		switch (facing) {
 		case "UP":
+			
 			if (this.getX() % 64 >= 64 / 2) {
 				this.setX(this.getX() + (64 - this.getX() % 64));
 			} else {

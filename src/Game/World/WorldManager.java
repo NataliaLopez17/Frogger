@@ -72,17 +72,16 @@ public class WorldManager {
 		SpawnedAreas = new ArrayList<>();
 		SpawnedHazards = new ArrayList<>();
 
-		SpawnedHazards.add(new RamenLog(handler,0,0));			//THIS WAS ADDED
 
-		System.out.println(SpawnedHazards);                    //TO SEE WHAT IS IN THE LIST
-		System.out.println(StaticEntitiesAvailables);   		//TO SEE WHAT IS IN THE LIST
+		System.out.println("spawned hazards " + SpawnedHazards);                    //TO SEE WHAT IS IN THE LIST
+		System.out.println("static entities " + StaticEntitiesAvailables);   		//TO SEE WHAT IS IN THE LIST
 		System.out.println(idLists);
 
 		player = new Player(handler);       
 
 		gridWidth = handler.getWidth()/64;
 		gridHeight = handler.getHeight()/64;
-		movementSpeed = 2;
+		movementSpeed = 1;
 		// movementSpeed = 20; I dare you.
 
 		/* 
@@ -95,6 +94,8 @@ public class WorldManager {
 
 		player.setX((gridWidth/2)*64);
 		player.setY((gridHeight-3)*64);
+
+
 
 		// Not used atm.
 		grid = new ID[gridWidth][gridHeight];
@@ -166,14 +167,6 @@ public class WorldManager {
 			if(player.getX() < 0) {
 				player.setX(player.getX() + 2);
 			}
-
-			if(player.getY() < gridWidth) {											//UUUUGHHHHHHH
-				State.setState(handler.getGame().pauseState);
-			}
-
-			if(player.getHeight() == handler.getHeight()) {
-				State.setState(handler.getGame().pauseState);
-			}
 		}
 
 		HazardMovement();
@@ -186,30 +179,17 @@ public class WorldManager {
 
 	}
 
-	private void Bounds() {
-		/*
-			if ((!(Player.moving))) {
-				if (player.getPlayerCollision().intersects(StaticEntitiesAvailables.get(3).GetCollision())) {   //CHECKING RAMEN BOUNDARIES
-					player.setY(player.getY() + 4);player.setX(player.getX()+4);
-				}
-			}
-		 */
-
-
-	}
 
 	private void HazardMovement() {
 
 		for (int i = 0; i < SpawnedHazards.size(); i++) {
-
-
-
 			// Moves hazard down
 			SpawnedHazards.get(i).setY(SpawnedHazards.get(i).getY() + movementSpeed);
 
 			// Moves Log or Turtle to the right
 			if (SpawnedHazards.get(i) instanceof Log || SpawnedHazards.get(i) instanceof Turtle) {
 				SpawnedHazards.get(i).setX(SpawnedHazards.get(i).getX() + 1);
+
 
 				// Verifies the hazards Rectangles aren't null and
 				// If the player Rectangle intersects with the Log or Turtle Rectangle, then
@@ -218,29 +198,26 @@ public class WorldManager {
 						&& player.getPlayerCollision().intersects(SpawnedHazards.get(i).GetCollision())) {
 					player.setX(player.getX() + 1);
 				}
-
-
-
 				if (SpawnedHazards.get(i).GetCollision() != null
 						&& player.getPlayerCollision().intersects(SpawnedHazards.get(i).GetCollision())) {
 					player.setY(player.getY());
 				}
-				
-				
-				
-				if (SpawnedHazards.get(i) instanceof RamenLog 
-						&& SpawnedHazards.get(i).GetCollision() != null
-						&& player.getPlayerCollision().intersects(SpawnedHazards.get(i).GetCollision())) {
-						player.setY(player.getY() + 8);
-
-				}
-
 
 				// if hazard has passed the screen height, then remove this hazard.
-				if (SpawnedHazards.get(i).getY() > handler.getHeight()) {
+				if ((SpawnedHazards.get(i).getY() > handler.getHeight()) && player.getY() > handler.getHeight()) {
 					SpawnedHazards.remove(i);
+					State.setState(handler.getGame().pauseState);
 				}
 			}
+			/*
+			if (SpawnedHazards.get(i) instanceof RamenLog) {
+				if (SpawnedHazards.get(i).GetCollision() != null
+						|| player.getHeight() > RamenLog.ramenLog.y) {
+					player.setY(player.getY() + 2);
+				}
+			}
+			
+			*/
 		}
 	}
 

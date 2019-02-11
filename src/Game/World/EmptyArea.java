@@ -1,6 +1,8 @@
 package Game.World;
 
 import java.awt.Graphics;
+
+import Game.Entities.Dynamic.Player;
 import Main.Handler;
 import Resources.Images;
 
