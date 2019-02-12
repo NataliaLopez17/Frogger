@@ -30,7 +30,8 @@ public class WorldManager {
 	private ArrayList<BaseArea> SpawnedAreas;				// Areas currently on world
 	private ArrayList<StaticBase> SpawnedHazards;			// Hazards currently on world.
 
-
+	private ArrayList<StaticBase> RamenCollision;			//D added this
+	
 	private ArrayList<ID> idLists;							//THIS WAS ADDED
 
 
@@ -144,6 +145,7 @@ public class WorldManager {
 		for (StaticBase hazard : SpawnedHazards) {
 			hazard.tick();
 		}
+		
 
 
 		for (int i = 0; i < SpawnedAreas.size(); i++) {
@@ -180,6 +182,8 @@ public class WorldManager {
 	}
 
 
+	
+	
 	private void HazardMovement() {
 
 		for (int i = 0; i < SpawnedHazards.size(); i++) {
@@ -189,7 +193,7 @@ public class WorldManager {
 			// Moves Log or Turtle to the right
 			if (SpawnedHazards.get(i) instanceof Log || SpawnedHazards.get(i) instanceof Turtle) {
 				SpawnedHazards.get(i).setX(SpawnedHazards.get(i).getX() + 1);
-
+			
 
 				// Verifies the hazards Rectangles aren't null and
 				// If the player Rectangle intersects with the Log or Turtle Rectangle, then
@@ -216,9 +220,11 @@ public class WorldManager {
 					player.setY(player.getY() + 2);
 				}
 			}
-			
 			*/
+			
 		}
+		
+		
 	}
 
 
@@ -238,6 +244,9 @@ public class WorldManager {
 
 	}
 
+	
+	
+	
 	/*
 	 * Given a yPosition, this method will return a random Area out of the Available ones.)
 	 * It is also in charge of spawning hazards at a specific condition.
@@ -260,13 +269,13 @@ public class WorldManager {
 
 			randInt = 64 * rand.nextInt(10);
 			SpawnedHazards.add(new LillyPad(handler, randInt, yPosition));
-
+/*
 			randInt = 64 * rand.nextInt(10); //prev was 3
 			SpawnedHazards.add(new Turtle(handler, randInt, yPosition)); //THIS MAY BE CAUSING OVERLAP
 
 			randInt = 64 * rand.nextInt(10); //prev was 3
 			SpawnedHazards.add(new Log(handler, randInt, yPosition)); //THIS MAY BE CAUSING OVERLAP
-
+*/
 			SpawnHazard(yPosition);
 		}
 		else {
@@ -281,20 +290,20 @@ public class WorldManager {
 	private void SpawnHazard(int yPosition) {
 		Random rand = new Random();
 		int randInt;
-		int choice = rand.nextInt(3); //prev was 12
+		int choice = rand.nextInt(12); //prev was 12
 		// Chooses between Log or Lillypad
-		if (choice ==1) { //prev was <=3
+		if (choice <=3) { //prev was <=3
 			randInt = 64 * rand.nextInt(5); //prev was 4
 			SpawnedHazards.add(new Log(handler, randInt, yPosition));
 		}
-		else if (choice ==2){ //prev was >=6
+		else if (choice >=6){ //prev was >=6
 			randInt = 64 * rand.nextInt(10);
 			SpawnedHazards.add(new LillyPad(handler, randInt, yPosition));
 
 			//if(SpawnedHazards.contains(handler.getEntityManager().getEntityList().))
 		}
 		else{
-			randInt = 64 * rand.nextInt(5); //prev was 3
+			randInt = 64 * rand.nextInt(3); //prev was 3
 			SpawnedHazards.add(new Turtle(handler, randInt, yPosition));
 		}
 	}

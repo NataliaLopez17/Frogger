@@ -14,16 +14,4 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>res/Sheets/newlilypad.png</name>
-			<type>1</type>
-			<location>C:/Users/NATALIA E/Desktop/newlilypad.png</location>
-		</link>
-		<link>
-			<name>res/Sheets/ramen.png</name>
-			<type>1</type>
-			<location>C:/Users/NATALIA E/Desktop/ramen.png</location>
-		</link>
-	</linkedResources>
 </projectDescription>
