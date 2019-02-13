@@ -68,7 +68,8 @@ public class Player extends EntityBase {
 		///////////////// MOVE UP///////////////
 		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_W) && !moving && facing.equals("UP")) {
 			moving = true;
-		} else if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_W) && !moving && !facing.equals("UP")) {
+		} 
+		else if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_W) && !moving && !facing.equals("UP")) {
 			if (facing.equals("DOWN")) {
 				if (this.getX() % 64 >= 64 / 2) {
 

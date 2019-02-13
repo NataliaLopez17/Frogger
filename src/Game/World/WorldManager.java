@@ -1,7 +1,6 @@
 package Game.World;
 
 import java.awt.Graphics;
-import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -24,15 +23,12 @@ import UI.UIManager;
  */
 public class WorldManager {
 
+	private LillyPad lily;
 	private ArrayList<BaseArea> AreasAvailables;			// Lake, empty and grass area (NOTE: The empty tile is just the "sand" tile. Ik, weird name.)
 	private ArrayList<StaticBase> StaticEntitiesAvailables;	// Has the hazards: LillyPad, Log, Tree, and Turtle.
 
 	private ArrayList<BaseArea> SpawnedAreas;				// Areas currently on world
-	private ArrayList<StaticBase> SpawnedHazards;			// Hazards currently on world.
-
-	private ArrayList<StaticBase> RamenCollision;			//D added this
-	
-	private ArrayList<ID> idLists;							//THIS WAS ADDED
+	private ArrayList<StaticBase> SpawnedHazards;			// Hazards currently on world.							//THIS WAS ADDED
 
 
 	Long time;
@@ -55,7 +51,6 @@ public class WorldManager {
 	public WorldManager(Handler handler) {
 		this.handler = handler;
 
-		idLists = new ArrayList<>();
 		AreasAvailables = new ArrayList<>();				// Here we add the Tiles to be utilized.
 		StaticEntitiesAvailables = new ArrayList<>();		// Here we add the Hazards to be utilized.
 
@@ -68,15 +63,16 @@ public class WorldManager {
 		StaticEntitiesAvailables.add(new Turtle(handler, 0, 0));
 		StaticEntitiesAvailables.add(new RamenLog(handler, 0, 0));
 
-		idLists.add(ID.RAMENLOG);								//ID ARRAYLIST
-
 		SpawnedAreas = new ArrayList<>();
 		SpawnedHazards = new ArrayList<>();
+
+		SpawnedHazards.add(new RamenLog(handler, 0, 0));
 
 
 		System.out.println("spawned hazards " + SpawnedHazards);                    //TO SEE WHAT IS IN THE LIST
 		System.out.println("static entities " + StaticEntitiesAvailables);   		//TO SEE WHAT IS IN THE LIST
-		System.out.println(idLists);
+		System.out.println("areas " + AreasAvailables);
+
 
 		player = new Player(handler);       
 
@@ -90,8 +86,9 @@ public class WorldManager {
 		 *  To understand this, go down to randomArea(int yPosition) 
 		 */
 		for(int i=0; i<gridHeight+2; i++) {
-			SpawnedAreas.add(randomArea((-2+i)*64)); //idea*
+			SpawnedAreas.add(randomArea((-2+ i)*64)); 
 		}
+
 
 		player.setX((gridWidth/2)*64);
 		player.setY((gridHeight-3)*64);
@@ -145,8 +142,6 @@ public class WorldManager {
 		for (StaticBase hazard : SpawnedHazards) {
 			hazard.tick();
 		}
-		
-
 
 		for (int i = 0; i < SpawnedAreas.size(); i++) {
 			SpawnedAreas.get(i).setYPosition(SpawnedAreas.get(i).getYPosition() + movementSpeed);
@@ -169,8 +164,9 @@ public class WorldManager {
 			if(player.getX() < 0) {
 				player.setX(player.getX() + 2);
 			}
-		}
 
+
+		}
 		HazardMovement();
 
 		player.tick();
@@ -179,12 +175,64 @@ public class WorldManager {
 
 		object2.tick();
 
+
+		for (int i = 0; i < SpawnedHazards.size(); i++) {
+			if (Player.facing.equals("UP") && (SpawnedHazards.get(i) instanceof RamenLog) &&
+					(SpawnedHazards.get(i).GetCollision() != null) 
+					&& (player.getPlayerCollision().intersects(SpawnedHazards.get(i).GetCollision()))) {
+				player.setY(player.getY() + 10);
+
+			}
+			if (Player.facing.equals("DOWN") && (SpawnedHazards.get(i) instanceof RamenLog) &&
+					(SpawnedHazards.get(i).GetCollision() != null) 
+					&& (player.getPlayerCollision().intersects(SpawnedHazards.get(i).GetCollision()))) {
+				player.setY(player.getY() - 10);
+
+			}
+			if (Player.facing.equals("LEFT") && (SpawnedHazards.get(i) instanceof RamenLog) &&
+					(SpawnedHazards.get(i).GetCollision() != null) 
+					&& (player.getPlayerCollision().intersects(SpawnedHazards.get(i).GetCollision()))) {
+				player.setX(player.getX() + 10);
+
+			}
+			if (Player.facing.equals("RIGHT") && (SpawnedHazards.get(i) instanceof RamenLog) &&
+					(SpawnedHazards.get(i).GetCollision() != null) 
+					&& (player.getPlayerCollision().intersects(SpawnedHazards.get(i).GetCollision()))) {
+				player.setX(player.getX() - 10);
+
+			}
+		}
+
 	}
 
+	/*
+	public void Collision() {
+		for (int i = 0; i < SpawnedHazards.size(); i++) {
+			if (Player.facing.equals("UP") && (SpawnedHazards.get(i) instanceof RamenLog) 
+					&& (player.getPlayerCollision().intersects(SpawnedHazards.get(i).GetCollision()))) {
+				player.setY(player.getY() + 10);
 
-	
-	
-	private void HazardMovement() {
+			}
+			if (Player.facing.equals("DOWN") && (SpawnedHazards.get(i) instanceof RamenLog) 
+					&& (player.getPlayerCollision().intersects(SpawnedHazards.get(i).GetCollision()))) {
+				player.setY(player.getY() - 10);
+
+			}
+			if (Player.facing.equals("LEFT") && (SpawnedHazards.get(i) instanceof RamenLog) 
+					&& (player.getPlayerCollision().intersects(SpawnedHazards.get(i).GetCollision()))) {
+				player.setX(player.getX() + 10);
+
+			}
+			if (Player.facing.equals("RIGHT") && (SpawnedHazards.get(i) instanceof RamenLog) 
+					&& (player.getPlayerCollision().intersects(SpawnedHazards.get(i).GetCollision()))) {
+				player.setX(player.getX() - 10);
+
+			}
+		}
+	}
+
+	 */
+	public void HazardMovement() {
 
 		for (int i = 0; i < SpawnedHazards.size(); i++) {
 			// Moves hazard down
@@ -193,7 +241,7 @@ public class WorldManager {
 			// Moves Log or Turtle to the right
 			if (SpawnedHazards.get(i) instanceof Log || SpawnedHazards.get(i) instanceof Turtle) {
 				SpawnedHazards.get(i).setX(SpawnedHazards.get(i).getX() + 1);
-			
+
 
 				// Verifies the hazards Rectangles aren't null and
 				// If the player Rectangle intersects with the Log or Turtle Rectangle, then
@@ -213,40 +261,20 @@ public class WorldManager {
 					State.setState(handler.getGame().pauseState);
 				}
 			}
-			/*
-			if (SpawnedHazards.get(i) instanceof RamenLog) {
-				if (SpawnedHazards.get(i).GetCollision() != null
-						|| player.getHeight() > RamenLog.ramenLog.y) {
-					player.setY(player.getY() + 2);
-				}
-			}
-			*/
-			
 		}
-		
-		
 	}
-
-
 	public void render(Graphics g){
 
 		for(BaseArea area : SpawnedAreas) {
 			area.render(g);
 		}
-
 		for (StaticBase hazards : SpawnedHazards) {
 			hazards.render(g);
-
 		}
-
 		player.render(g);       
 		this.object2.render(g);      
 
 	}
-
-	
-	
-	
 	/*
 	 * Given a yPosition, this method will return a random Area out of the Available ones.)
 	 * It is also in charge of spawning hazards at a specific condition.
@@ -256,26 +284,23 @@ public class WorldManager {
 		int randInt;
 
 		// From the AreasAvailable, get me any random one.
-		BaseArea randomArea = AreasAvailables.get(rand.nextInt(AreasAvailables.size())); 
+		BaseArea randomArea = AreasAvailables.get(rand.nextInt(AreasAvailables.size()));  
 
-		if(randomArea instanceof GrassArea) {
+		if(randomArea instanceof GrassArea && yPosition < 512) {
+
 			randomArea = new GrassArea(handler, yPosition);
 
-			randInt = 64 * rand.nextInt(10);
+			randInt = 64 * rand.nextInt(5);
 			SpawnedHazards.add(new RamenLog(handler, randInt, yPosition));
 		}
-		else if(randomArea instanceof WaterArea) {
+		else if(randomArea instanceof WaterArea && yPosition < 512) {
 			randomArea = new WaterArea(handler, yPosition);
 
-			randInt = 64 * rand.nextInt(10);
+			randInt = 64 * rand.nextInt(5);
 			SpawnedHazards.add(new LillyPad(handler, randInt, yPosition));
-/*
-			randInt = 64 * rand.nextInt(10); //prev was 3
 			SpawnedHazards.add(new Turtle(handler, randInt, yPosition)); //THIS MAY BE CAUSING OVERLAP
-
-			randInt = 64 * rand.nextInt(10); //prev was 3
 			SpawnedHazards.add(new Log(handler, randInt, yPosition)); //THIS MAY BE CAUSING OVERLAP
-*/
+
 			SpawnHazard(yPosition);
 		}
 		else {
@@ -290,20 +315,18 @@ public class WorldManager {
 	private void SpawnHazard(int yPosition) {
 		Random rand = new Random();
 		int randInt;
-		int choice = rand.nextInt(12); //prev was 12
+		int choice = rand.nextInt(3); 
 		// Chooses between Log or Lillypad
-		if (choice <=3) { //prev was <=3
-			randInt = 64 * rand.nextInt(5); //prev was 4
+		if (choice ==1) { 
+			randInt = 64 * rand.nextInt(6); //prev was 4
 			SpawnedHazards.add(new Log(handler, randInt, yPosition));
 		}
-		else if (choice >=6){ //prev was >=6
+		else if (choice ==2){ 
 			randInt = 64 * rand.nextInt(10);
 			SpawnedHazards.add(new LillyPad(handler, randInt, yPosition));
-
-			//if(SpawnedHazards.contains(handler.getEntityManager().getEntityList().))
 		}
 		else{
-			randInt = 64 * rand.nextInt(3); //prev was 3
+			randInt = 64 * rand.nextInt(6);
 			SpawnedHazards.add(new Turtle(handler, randInt, yPosition));
 		}
 	}
