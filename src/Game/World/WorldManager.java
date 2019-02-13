@@ -164,6 +164,10 @@ public class WorldManager {
 			if(player.getX() < 0) {
 				player.setX(player.getX() + 2);
 			}
+			
+			if(player.getY() < 0 ) {
+				player.setY(player.getY() + 20);
+			}
 
 
 		}
@@ -180,25 +184,25 @@ public class WorldManager {
 			if (Player.facing.equals("UP") && (SpawnedHazards.get(i) instanceof RamenLog) &&
 					(SpawnedHazards.get(i).GetCollision() != null) 
 					&& (player.getPlayerCollision().intersects(SpawnedHazards.get(i).GetCollision()))) {
-				player.setY(player.getY() + 10);
+				player.setY(player.getY() + 5);
 
 			}
 			if (Player.facing.equals("DOWN") && (SpawnedHazards.get(i) instanceof RamenLog) &&
 					(SpawnedHazards.get(i).GetCollision() != null) 
 					&& (player.getPlayerCollision().intersects(SpawnedHazards.get(i).GetCollision()))) {
-				player.setY(player.getY() - 10);
+				player.setY(player.getY() - 5);
 
 			}
 			if (Player.facing.equals("LEFT") && (SpawnedHazards.get(i) instanceof RamenLog) &&
 					(SpawnedHazards.get(i).GetCollision() != null) 
 					&& (player.getPlayerCollision().intersects(SpawnedHazards.get(i).GetCollision()))) {
-				player.setX(player.getX() + 10);
+				player.setX(player.getX() + 5);
 
 			}
 			if (Player.facing.equals("RIGHT") && (SpawnedHazards.get(i) instanceof RamenLog) &&
 					(SpawnedHazards.get(i).GetCollision() != null) 
 					&& (player.getPlayerCollision().intersects(SpawnedHazards.get(i).GetCollision()))) {
-				player.setX(player.getX() - 10);
+				player.setX(player.getX() - 5);
 
 			}
 		}
@@ -261,6 +265,10 @@ public class WorldManager {
 					State.setState(handler.getGame().pauseState);
 				}
 			}
+			
+			//if(SpawnedHazards.get(i) instanceof LillyPad) {
+				
+			//}
 		}
 	}
 	public void render(Graphics g){
