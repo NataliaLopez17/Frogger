@@ -34,6 +34,8 @@ public class WorldManager {
 	Long time;
 	Boolean reset = true;
 
+	public static Boolean lillySpawn = false;
+
 	Handler handler;
 
 
@@ -78,7 +80,7 @@ public class WorldManager {
 
 		gridWidth = handler.getWidth()/64;
 		gridHeight = handler.getHeight()/64;
-		movementSpeed = 1;
+		movementSpeed = 2;
 		// movementSpeed = 20; I dare you.
 
 		/* 
@@ -164,9 +166,9 @@ public class WorldManager {
 			if(player.getX() < 0) {
 				player.setX(player.getX() + 2);
 			}
-			
-			if(player.getY() < 0 ) {
-				player.setY(player.getY() + 20);
+
+			if (player.getY() < 0) {
+				State.setState(handler.getGame().pauseState);
 			}
 
 
@@ -181,61 +183,29 @@ public class WorldManager {
 
 
 		for (int i = 0; i < SpawnedHazards.size(); i++) {
-			if (Player.facing.equals("UP") && (SpawnedHazards.get(i) instanceof RamenLog) &&
-					(SpawnedHazards.get(i).GetCollision() != null) 
-					&& (player.getPlayerCollision().intersects(SpawnedHazards.get(i).GetCollision()))) {
-				player.setY(player.getY() + 5);
 
-			}
-			if (Player.facing.equals("DOWN") && (SpawnedHazards.get(i) instanceof RamenLog) &&
-					(SpawnedHazards.get(i).GetCollision() != null) 
-					&& (player.getPlayerCollision().intersects(SpawnedHazards.get(i).GetCollision()))) {
-				player.setY(player.getY() - 5);
 
-			}
-			if (Player.facing.equals("LEFT") && (SpawnedHazards.get(i) instanceof RamenLog) &&
-					(SpawnedHazards.get(i).GetCollision() != null) 
-					&& (player.getPlayerCollision().intersects(SpawnedHazards.get(i).GetCollision()))) {
-				player.setX(player.getX() + 5);
+				if((SpawnedHazards.get(i) instanceof RamenLog)
+						&& (SpawnedHazards.get(i).GetCollision() != null) 
+						&& (player.getPlayerCollision().intersects(SpawnedHazards.get(i).GetCollision()))) {
+					if(Player.facing.equals("UP")) {
+						player.setY((int) (player.getY() + 2));
+					}
 
-			}
-			if (Player.facing.equals("RIGHT") && (SpawnedHazards.get(i) instanceof RamenLog) &&
-					(SpawnedHazards.get(i).GetCollision() != null) 
-					&& (player.getPlayerCollision().intersects(SpawnedHazards.get(i).GetCollision()))) {
-				player.setX(player.getX() - 5);
-
-			}
+					else if(Player.facing.equals("DOWN")) {
+						player.setY((int) (player.getY() - 2));
+					}
+					else if(Player.facing.equals("LEFT")) {
+						player.setX((int) (player.getX() + 2));
+					}
+					else if(Player.facing.equals("RIGHT")) {
+						player.setX((int) (player.getX() - 2));
+					}
+				}
 		}
 
 	}
 
-	/*
-	public void Collision() {
-		for (int i = 0; i < SpawnedHazards.size(); i++) {
-			if (Player.facing.equals("UP") && (SpawnedHazards.get(i) instanceof RamenLog) 
-					&& (player.getPlayerCollision().intersects(SpawnedHazards.get(i).GetCollision()))) {
-				player.setY(player.getY() + 10);
-
-			}
-			if (Player.facing.equals("DOWN") && (SpawnedHazards.get(i) instanceof RamenLog) 
-					&& (player.getPlayerCollision().intersects(SpawnedHazards.get(i).GetCollision()))) {
-				player.setY(player.getY() - 10);
-
-			}
-			if (Player.facing.equals("LEFT") && (SpawnedHazards.get(i) instanceof RamenLog) 
-					&& (player.getPlayerCollision().intersects(SpawnedHazards.get(i).GetCollision()))) {
-				player.setX(player.getX() + 10);
-
-			}
-			if (Player.facing.equals("RIGHT") && (SpawnedHazards.get(i) instanceof RamenLog) 
-					&& (player.getPlayerCollision().intersects(SpawnedHazards.get(i).GetCollision()))) {
-				player.setX(player.getX() - 10);
-
-			}
-		}
-	}
-
-	 */
 	public void HazardMovement() {
 
 		for (int i = 0; i < SpawnedHazards.size(); i++) {
@@ -265,10 +235,6 @@ public class WorldManager {
 					State.setState(handler.getGame().pauseState);
 				}
 			}
-			
-			//if(SpawnedHazards.get(i) instanceof LillyPad) {
-				
-			//}
 		}
 	}
 	public void render(Graphics g){
@@ -300,19 +266,21 @@ public class WorldManager {
 
 			randInt = 64 * rand.nextInt(5);
 			SpawnedHazards.add(new RamenLog(handler, randInt, yPosition));
+			lillySpawn = false;
+
 		}
-		else if(randomArea instanceof WaterArea && yPosition < 512) {
+		else if(randomArea instanceof WaterArea && yPosition < 512 && lillySpawn == false) {
 			randomArea = new WaterArea(handler, yPosition);
 
-			randInt = 64 * rand.nextInt(5);
+			randInt = 64 * rand.nextInt(10);
 			SpawnedHazards.add(new LillyPad(handler, randInt, yPosition));
-			SpawnedHazards.add(new Turtle(handler, randInt, yPosition)); //THIS MAY BE CAUSING OVERLAP
-			SpawnedHazards.add(new Log(handler, randInt, yPosition)); //THIS MAY BE CAUSING OVERLAP
 
 			SpawnHazard(yPosition);
+			lillySpawn = true;
 		}
 		else {
 			randomArea = new EmptyArea(handler, yPosition);
+			lillySpawn = false;
 		}
 		return randomArea;
 	}
@@ -323,18 +291,18 @@ public class WorldManager {
 	private void SpawnHazard(int yPosition) {
 		Random rand = new Random();
 		int randInt;
-		int choice = rand.nextInt(3); 
+		int choice = rand.nextInt(7); 
 		// Chooses between Log or Lillypad
-		if (choice ==1) { 
-			randInt = 64 * rand.nextInt(6); //prev was 4
+		if (choice <= 2) { 
+			randInt = 64 * rand.nextInt(4); 
 			SpawnedHazards.add(new Log(handler, randInt, yPosition));
 		}
-		else if (choice ==2){ 
-			randInt = 64 * rand.nextInt(10);
+		else if (choice >= 5){ 
+			randInt = 64 * rand.nextInt(9);
 			SpawnedHazards.add(new LillyPad(handler, randInt, yPosition));
 		}
 		else{
-			randInt = 64 * rand.nextInt(6);
+			randInt = 64 * rand.nextInt(3);
 			SpawnedHazards.add(new Turtle(handler, randInt, yPosition));
 		}
 	}
