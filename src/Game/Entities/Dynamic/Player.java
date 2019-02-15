@@ -67,6 +67,13 @@ public class Player extends EntityBase {
 
 		///////////////// MOVE UP///////////////
 		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_W) && !moving && facing.equals("UP")) {
+			//if(handler.getWorld().SpawnedHazards.get(
+			
+				
+				
+				
+			
+			
 			moving = true;
 		} 
 		else if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_W) && !moving && !facing.equals("UP")) {
@@ -235,6 +242,6 @@ public class Player extends EntityBase {
 
 	public Rectangle getPlayerCollision() {
 		return player;
-	}
-
+	} 
+		
 }

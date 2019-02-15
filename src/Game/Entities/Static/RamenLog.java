@@ -8,7 +8,7 @@ import Resources.Images;
 
 public class RamenLog extends StaticBase {
 
-    public static Rectangle ramenLog;
+    public Rectangle ramenLog;
 	
     public RamenLog(Handler handler,int xPosition, int yPosition) {
         super(handler);

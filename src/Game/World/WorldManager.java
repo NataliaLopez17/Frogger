@@ -24,13 +24,14 @@ import UI.UIManager;
 public class WorldManager {
 
 	private LillyPad lily;
-	private ArrayList<BaseArea> AreasAvailables;			// Lake, empty and grass area (NOTE: The empty tile is just the "sand" tile. Ik, weird name.)
-	private ArrayList<StaticBase> StaticEntitiesAvailables;	// Has the hazards: LillyPad, Log, Tree, and Turtle.
+	public ArrayList<BaseArea> AreasAvailables;			// Lake, empty and grass area (NOTE: The empty tile is just the "sand" tile. Ik, weird name.)
+	public ArrayList<StaticBase> StaticEntitiesAvailables;	// Has the hazards: LillyPad, Log, Tree, and Turtle.
 
-	private ArrayList<BaseArea> SpawnedAreas;				// Areas currently on world
-	private ArrayList<StaticBase> SpawnedHazards;			// Hazards currently on world.							//THIS WAS ADDED
+	public ArrayList<BaseArea> SpawnedAreas;				// Areas currently on world
+	public ArrayList<StaticBase> SpawnedHazards;			// Hazards currently on world.							//THIS WAS ADDED
 
-
+	
+	
 	Long time;
 	Boolean reset = true;
 
@@ -68,7 +69,7 @@ public class WorldManager {
 		SpawnedAreas = new ArrayList<>();
 		SpawnedHazards = new ArrayList<>();
 
-		SpawnedHazards.add(new RamenLog(handler, 0, 0));
+		//SpawnedHazards.add(new RamenLog(handler, 0, 0));
 
 
 		System.out.println("spawned hazards " + SpawnedHazards);                    //TO SEE WHAT IS IN THE LIST
@@ -80,7 +81,7 @@ public class WorldManager {
 
 		gridWidth = handler.getWidth()/64;
 		gridHeight = handler.getHeight()/64;
-		movementSpeed = 2;
+		movementSpeed = 1;
 		// movementSpeed = 20; I dare you.
 
 		/* 
@@ -161,7 +162,7 @@ public class WorldManager {
 
 			if(player.getX() > handler.getWidth()) {						//CHECKING GRID BOUNDARIES
 				player.setX(player.getX() - 2);
-			}
+			} 
 
 			if(player.getX() < 0) {
 				player.setX(player.getX() + 2);
@@ -169,8 +170,12 @@ public class WorldManager {
 
 			if (player.getY() < 0) {
 				State.setState(handler.getGame().pauseState);
+				//player.setX(player.getX() - 2);
 			}
-
+			//if (player.getY() > handler.getHeight()) {
+				//player.setX(player.getX() - 2);
+				
+			//}
 
 		}
 		HazardMovement();
@@ -181,7 +186,7 @@ public class WorldManager {
 
 		object2.tick();
 
-
+/*
 		for (int i = 0; i < SpawnedHazards.size(); i++) {
 
 
@@ -202,7 +207,7 @@ public class WorldManager {
 						player.setX((int) (player.getX() - 2));
 					}
 				}
-		}
+		} */
 
 	}
 
@@ -234,6 +239,33 @@ public class WorldManager {
 					SpawnedHazards.remove(i);
 					State.setState(handler.getGame().pauseState);
 				}
+							
+			}
+			
+			if (SpawnedHazards.get(i) instanceof RamenLog)  {
+				//SpawnedHazards.get(i).setX(SpawnedHazards.get(i).getX() + 1);
+				
+				if((SpawnedHazards.get(i).GetCollision() != null) 
+						&& (player.getPlayerCollision().intersects(SpawnedHazards.get(i).GetCollision()))) {
+				
+					if(Player.facing.equals("UP")) {
+						Player.moving = false;
+					}
+
+					else if(Player.facing.equals("DOWN")) {
+						Player.moving = false;
+					}
+					else if(Player.facing.equals("LEFT")) {
+						Player.moving = false;
+					}
+					else  {
+						Player.moving = false;
+					}
+				}
+				
+				
+				
+			
 			}
 		}
 	}
