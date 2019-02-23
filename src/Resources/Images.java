@@ -35,6 +35,8 @@ public class Images {
     public static SpriteSheet WaterSheet;
     public static BufferedImage[] Water;
 
+    public static BufferedImage ramenLog;
+	public static BufferedImage pancakeLillyPad;
 
     public static BufferedImage player;
     
@@ -135,6 +137,9 @@ public class Images {
             player = ImageIO.read(getClass().getResourceAsStream("/Sheets/froggy.png"));
             grass = ImageIO.read(getClass().getResourceAsStream("/Sheets/grass.jpg"));
 
+            ramenLog = ImageIO.read(getClass().getResourceAsStream("/Sheets/Objects/ramen.png"));
+			pancakeLillyPad = ImageIO.read(getClass().getResourceAsStream("/Sheets/Objects/newlilypad.png"));
+			
             grassArea = ImageIO.read(getClass().getResourceAsStream("/Sheets/grassArea.png"));
             waterArea = ImageIO.read(getClass().getResourceAsStream("/Sheets/waterArea.png"));
             emptyArea = ImageIO.read(getClass().getResourceAsStream("/Sheets/sand.jpg"));
