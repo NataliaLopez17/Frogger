@@ -208,12 +208,18 @@ public class WorldManager {
      */
 	private BaseArea randomArea(int yPosition) {
     	Random rand = new Random();
+    	int randInt;
     	
     	// From the AreasAvailable, get me any random one.
     	BaseArea randomArea = AreasAvailables.get(rand.nextInt(AreasAvailables.size())); 
     	
     	if(randomArea instanceof GrassArea) {
     		randomArea = new GrassArea(handler, yPosition);
+    		
+    		randInt = 64 * rand.nextInt(5);
+			SpawnedHazards.add(new RamenLog(handler, randInt, yPosition));
+			
+			
     	}
     	else if(randomArea instanceof WaterArea) {
     		randomArea = new WaterArea(handler, yPosition);
