@@ -6,6 +6,7 @@ import Game.Entities.Static.Log;
 import Game.Entities.Static.RamenLog;
 import Game.Entities.Static.StaticBase;
 import Game.Entities.Static.Turtle;
+import Game.GameStates.State;
 import Main.Handler;
 import UI.UIManager;
 
@@ -145,6 +146,23 @@ public class WorldManager {
 					&& player.getY() - SpawnedAreas.get(i).getYPosition() < 3) {
 				player.setY(SpawnedAreas.get(i).getYPosition());
 			}
+			
+			
+			if(player.getX() > handler.getWidth()) {						
+				player.setX(player.getX() - 2);
+			} 
+
+			if(player.getX() < 0) {
+				player.setX(player.getX() + 2);
+			}
+
+			if (player.getY() < 0) {
+				State.setState(handler.getGame().pauseState);
+			}
+			
+			if(player.getY() > handler.getHeight()) {
+				State.setState(handler.getGame().pauseState);
+			}
 		}
 		
 		HazardMovement();
@@ -181,6 +199,7 @@ public class WorldManager {
 			// if hazard has passed the screen height, then remove this hazard.
 			if (SpawnedHazards.get(i).getY() > handler.getHeight()) {
 				SpawnedHazards.remove(i);
+				
 			}
 		}
 	}
