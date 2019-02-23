@@ -45,6 +45,9 @@ public class WorldManager {
 	private ID[][] grid;									
 	private int gridWidth,gridHeight;						// Size of the grid. 
 	private int movementSpeed;								// Movement of the tiles going downwards.
+	
+	
+	private boolean lillySpawn;
     
 
     public WorldManager(Handler handler) {
@@ -69,7 +72,7 @@ public class WorldManager {
 
         gridWidth = handler.getWidth()/64;
         gridHeight = handler.getHeight()/64;
-        movementSpeed = 1;
+        movementSpeed = 2;
         // movementSpeed = 20; I dare you.
         
         /* 
@@ -232,20 +235,26 @@ public class WorldManager {
     	// From the AreasAvailable, get me any random one.
     	BaseArea randomArea = AreasAvailables.get(rand.nextInt(AreasAvailables.size())); 
     	
-    	if(randomArea instanceof GrassArea) {
+    	if(randomArea instanceof GrassArea && yPosition < 512) {
     		randomArea = new GrassArea(handler, yPosition);
     		
     		randInt = 64 * rand.nextInt(5);
 			SpawnedHazards.add(new RamenLog(handler, randInt, yPosition));
 			
-			
+			lillySpawn = false;
     	}
-    	else if(randomArea instanceof WaterArea) {
+    	else if(randomArea instanceof WaterArea && yPosition < 512 && lillySpawn == false) {
     		randomArea = new WaterArea(handler, yPosition);
     		SpawnHazard(yPosition);
+    		
+    		randInt = 64 * rand.nextInt(8);
+			SpawnedHazards.add(new LillyPad(handler, randInt, yPosition));
+			
+			lillySpawn = true;
     	}
     	else {
     		randomArea = new EmptyArea(handler, yPosition);
+    		lillySpawn = false;
     	}
     	return randomArea;
     }
