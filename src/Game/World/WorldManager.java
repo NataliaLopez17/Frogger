@@ -37,6 +37,7 @@ public class WorldManager {
 
 	private Player player;									// How do we find the frog coordinates? How do we find the Collisions? This bad boy.
     
+	    
     UIManager object = new UIManager(handler);
     UI.UIManager.Vector object2 = object.new Vector();
 
@@ -71,7 +72,7 @@ public class WorldManager {
 
         gridWidth = handler.getWidth()/64;
         gridHeight = handler.getHeight()/64;
-        movementSpeed = 2;
+        movementSpeed = 1;
         // movementSpeed = 20; I dare you.
         
         /* 
@@ -203,6 +204,33 @@ public class WorldManager {
 				SpawnedHazards.remove(i);
 				
 			}
+			
+			
+			if (SpawnedHazards.get(i) instanceof RamenLog)  {
+				
+				if((SpawnedHazards.get(i).GetCollision() != null) 
+						&& (player.getPlayerCollision().intersects(SpawnedHazards.get(i).GetCollision()))) {
+				
+					if(player.facing.equals("UP")) {
+						player.moving = false;
+					}
+
+					else if(player.facing.equals("DOWN")) {
+						player.moving = false;
+						player.setY(player.getY()-70);
+						
+					}
+					else if(player.facing.equals("LEFT")) {
+						player.moving = false;
+					}
+					else  {
+						player.moving = false;
+					}
+				}
+			}
+			
+			
+			
 		}
 	}
 	
@@ -280,5 +308,29 @@ public class WorldManager {
 		}
 			
 	}
-    
+	
+/**
+	public String getFacing() {
+		return facing;
+	}
+
+
+
+	public void setFacing(String facing) {
+		this.facing = facing;
+	}
+
+
+
+	public Boolean getMoving() {
+		return moving;
+	}
+
+
+
+	public void setMoving(Boolean moving) {
+		this.moving = moving;
+	}
+	
+    **/
 }
