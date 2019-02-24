@@ -16,14 +16,39 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>res/Sheets/Objects/newlilypad.png</name>
+			<name>res/Buttons/restart.png</name>
 			<type>1</type>
-			<location>C:/Users/NATALIA E/Desktop/newlilypad.png</location>
+			<location>C:/Users/NATALIA E/Desktop/frogger/restart.png</location>
 		</link>
 		<link>
-			<name>res/Sheets/Objects/ramen.png</name>
+			<name>res/Buttons/restartdark.png</name>
 			<type>1</type>
-			<location>C:/Users/NATALIA E/Desktop/ramen.png</location>
+			<location>C:/Users/NATALIA E/Desktop/frogger/restartdark.png</location>
+		</link>
+		<link>
+			<name>res/Buttons/title.png</name>
+			<type>1</type>
+			<location>C:/Users/NATALIA E/Desktop/frogger/title.png</location>
+		</link>
+		<link>
+			<name>res/Buttons/titledark.png</name>
+			<type>1</type>
+			<location>C:/Users/NATALIA E/Desktop/frogger/titledark.png</location>
+		</link>
+		<link>
+			<name>res/Sheets/gameover2.png</name>
+			<type>1</type>
+			<location>C:/Users/NATALIA E/Desktop/frogger/gameover2.png</location>
+		</link>
+		<link>
+			<name>res/Sheets/newlilypad.png</name>
+			<type>1</type>
+			<location>C:/Users/NATALIA E/Desktop/frogger/newlilypad.png</location>
+		</link>
+		<link>
+			<name>res/Sheets/ramen.png</name>
+			<type>1</type>
+			<location>C:/Users/NATALIA E/Desktop/frogger/ramen.png</location>
 		</link>
 	</linkedResources>
 </projectDescription>

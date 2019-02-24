@@ -25,6 +25,10 @@ public class Images {
     public static BufferedImage[] Resume;
     public static BufferedImage[] BTitle;
     public static BufferedImage[] Options;
+    
+    public static BufferedImage[] restart;
+    public static BufferedImage[] newTitle;
+    
     public static ImageIcon icon;
     public static String str;
     public static BufferedImage icon2;
@@ -37,6 +41,7 @@ public class Images {
 
     public static BufferedImage ramenLog;
 	public static BufferedImage pancakeLillyPad;
+	public static BufferedImage gameOver;
 
     public static BufferedImage player;
     
@@ -60,6 +65,9 @@ public class Images {
         Turtle = new BufferedImage[20];
         Water = new BufferedImage[3];
         object = new BufferedImage[6];
+        
+        restart = new BufferedImage[2];
+        newTitle = new BufferedImage[2];
 
         try {
             playerSheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/gameSprites.png")));
@@ -76,6 +84,12 @@ public class Images {
             butstart[0]= ImageIO.read(getClass().getResourceAsStream("/Buttons/StartButton.png"));//normbut
             butstart[1]= ImageIO.read(getClass().getResourceAsStream("/Buttons/Startbutton2.png"));//hoverbut
             butstart[2]= ImageIO.read(getClass().getResourceAsStream("/Buttons/StartButton3.png"));//clickbut
+            
+            
+            restart[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/restart.png"));
+            restart[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/restartdark.png"));
+            newTitle[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/title.png"));
+            newTitle[1]	= ImageIO.read(getClass().getResourceAsStream("/Buttons/titledark.png"));	
             
             Player[0]= playerSheet.crop(0,30,52,39);
             Player[1]= playerSheet.crop(53,25,59,46);
@@ -137,8 +151,9 @@ public class Images {
             player = ImageIO.read(getClass().getResourceAsStream("/Sheets/froggy.png"));
             grass = ImageIO.read(getClass().getResourceAsStream("/Sheets/grass.jpg"));
 
-            ramenLog = ImageIO.read(getClass().getResourceAsStream("/Sheets/Objects/ramen.png"));
-			pancakeLillyPad = ImageIO.read(getClass().getResourceAsStream("/Sheets/Objects/newlilypad.png"));
+            ramenLog = ImageIO.read(getClass().getResourceAsStream("/Sheets/ramen.png"));
+			pancakeLillyPad = ImageIO.read(getClass().getResourceAsStream("/Sheets/newlilypad.png"));
+			gameOver = ImageIO.read(getClass().getResourceAsStream("/Sheets/gameover2.png"));
 			
             grassArea = ImageIO.read(getClass().getResourceAsStream("/Sheets/grassArea.png"));
             waterArea = ImageIO.read(getClass().getResourceAsStream("/Sheets/waterArea.png"));
