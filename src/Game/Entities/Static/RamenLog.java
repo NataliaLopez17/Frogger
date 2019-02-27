@@ -21,7 +21,7 @@ public class RamenLog extends StaticBase {
     @Override
     public void render(Graphics g) {
     	
-    	g.drawImage(Images.ramenLog, this.getX(), this.getY(), 64, 64, null);
+    	g.drawImage(Images.ramenLog, this.getX(), this.getY(), 64, 66, null);
     	ramenLog = new Rectangle(this.getX(), this.getY()+5, 64, 55);
 
     }

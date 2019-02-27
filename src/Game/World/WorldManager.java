@@ -11,6 +11,7 @@ import Main.Handler;
 import UI.UIManager;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -38,7 +39,7 @@ public class WorldManager {
 	private Player player;									// How do we find the frog coordinates? How do we find the Collisions? This bad boy.
 
 
-	public WaterArea water;
+	//public WaterArea water;
 
 	UIManager object = new UIManager(handler);
 	UI.UIManager.Vector object2 = object.new Vector();
@@ -168,6 +169,27 @@ public class WorldManager {
 			if(player.getY() > handler.getHeight()) {
 				State.setState(handler.getGame().gameOverState);
 			}
+
+			
+			
+			//DEATH ON WATER CODE
+			
+			/**
+			if((SpawnedAreas.get(i) instanceof WaterArea)) {
+				for (int j = 0; j < SpawnedHazards.size(); j++) {
+					if(!(SpawnedHazards.get(j) instanceof LillyPad)) {
+						if ((player.getY() >= SpawnedAreas.get(i).yPosition) && (player.getY() <= SpawnedAreas.get(i).yPosition + 64)) {
+							State.setState(handler.getGame().gameOverState);
+						}
+					}
+				}
+			}
+			**/
+			
+			
+			
+			
+			
 		}
 
 		HazardMovement();
@@ -219,16 +241,18 @@ public class WorldManager {
 						player.moving = false;
 					}
 
-					else if(player.facing.equals("DOWN")) {
+					if(player.facing.equals("DOWN")) {
 						player.moving = false;
+					}
 
-					}
-					else if(player.facing.equals("LEFT")) {
+					if(player.facing.equals("LEFT")) {
 						player.moving = false;
 					}
-					else if (player.facing.equals("RIGHT")) {
+
+					if (player.facing.equals("RIGHT")) {
 						player.moving = false;
 					}
+
 				}
 			}
 
@@ -242,16 +266,6 @@ public class WorldManager {
 
 		for(BaseArea area : SpawnedAreas) {
 			area.render(g);
-
-			/*
-			for (int i = 0; i < SpawnedHazards.size(); i++) {
-				if(area instanceof WaterArea && (!(SpawnedHazards.get(i) instanceof LillyPad && SpawnedHazards.get(i) instanceof Log && SpawnedHazards.get(i) instanceof Turtle))) {
-					if ((player.getY() >= area.yPosition) && (player.getY() <= area.yPosition + 64)) {
-						State.setState(handler.getGame().gameOverState);
-					}
-				}
-			}*/
-
 
 		}
 
