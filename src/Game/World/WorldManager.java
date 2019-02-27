@@ -221,7 +221,6 @@ public class WorldManager {
 
 					else if(player.facing.equals("DOWN")) {
 						player.moving = false;
-						player.setY(player.getY()-70);
 
 					}
 					else if(player.facing.equals("LEFT")) {
@@ -243,6 +242,16 @@ public class WorldManager {
 
 		for(BaseArea area : SpawnedAreas) {
 			area.render(g);
+
+			/*
+			for (int i = 0; i < SpawnedHazards.size(); i++) {
+				if(area instanceof WaterArea && (!(SpawnedHazards.get(i) instanceof LillyPad && SpawnedHazards.get(i) instanceof Log && SpawnedHazards.get(i) instanceof Turtle))) {
+					if ((player.getY() >= area.yPosition) && (player.getY() <= area.yPosition + 64)) {
+						State.setState(handler.getGame().gameOverState);
+					}
+				}
+			}*/
+
 
 		}
 
@@ -286,18 +295,7 @@ public class WorldManager {
 			SpawnedHazards.add(new LillyPad(handler, randInt, yPosition));
 
 			lillySpawn = true;
-			
-			/***
-			if(randomArea instanceof WaterArea) {
-				if (player.getY() >= randomArea.getYPosition() && (player.getY() <= randomArea.getYPosition() + 64)) {
-					System.out.println(1);
-					State.setState(handler.getGame().gameOverState);
-				}
-			}
-			**/
-			
-			
-			
+
 		}
 		else {
 			randomArea = new EmptyArea(handler, yPosition);

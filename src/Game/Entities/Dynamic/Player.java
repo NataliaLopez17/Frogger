@@ -69,12 +69,7 @@ public class Player extends EntityBase {
 		///////////////// MOVE UP///////////////
 		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_W) && !moving && facing.equals("UP")) {
 			//if(handler.getWorld().SpawnedHazards.get(
-			
-				
-				
-				
-			
-			
+
 			moving = true;
 		} 
 		else if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_W) && !moving && !facing.equals("UP")) {
@@ -219,11 +214,7 @@ public class Player extends EntityBase {
 			player = new Rectangle(this.getX(), this.getY() - 64, getWidth(), getHeight());
 		} else if (facing.equals("RIGHT")) {
 			player = new Rectangle(this.getX() - 64, this.getY(), getWidth(), getHeight());
-		} else if (facing.equals("LEFT")) {
-			player = new Rectangle(this.getX() - 64, this.getY(), getWidth(), getHeight());
-		} else if (facing.equals("DOWN")) {
-			player = new Rectangle(this.getX(), this.getY() - 64, getWidth(), getHeight());
-		}
+		} 
 	}
 
 	@SuppressWarnings("SuspiciousNameCombination")
