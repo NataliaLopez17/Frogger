@@ -42,6 +42,12 @@ public class Images {
     public static BufferedImage ramenLog;
 	public static BufferedImage pancakeLillyPad;
 	public static BufferedImage gameOver;
+	public static BufferedImage planet;
+	public static BufferedImage moon;
+	public static BufferedImage spaceShip;
+	public static BufferedImage clouds;
+	public static BufferedImage letter;
+	
 
     public static BufferedImage player;
     
@@ -154,6 +160,11 @@ public class Images {
             ramenLog = ImageIO.read(getClass().getResourceAsStream("/Sheets/ramen.png"));
 			pancakeLillyPad = ImageIO.read(getClass().getResourceAsStream("/Sheets/newlilypad.png"));
 			gameOver = ImageIO.read(getClass().getResourceAsStream("/Sheets/gameover2.png"));
+			letter = ImageIO.read(getClass().getResourceAsStream("/Sheets/Objects/letter.png"));
+			planet = ImageIO.read(getClass().getResourceAsStream("/Sheets/Objects/planet.png"));
+			spaceShip = ImageIO.read(getClass().getResourceAsStream("/Sheets/Objects/spaceship.png"));
+			clouds = ImageIO.read(getClass().getResourceAsStream("/Sheets/Objects/clouds.png"));
+			moon = ImageIO.read(getClass().getResourceAsStream("/Sheets/Objects/moon.png"));
 			
             grassArea = ImageIO.read(getClass().getResourceAsStream("/Sheets/grassArea.png"));
             waterArea = ImageIO.read(getClass().getResourceAsStream("/Sheets/waterArea.png"));

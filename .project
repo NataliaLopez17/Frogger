@@ -50,5 +50,30 @@
 			<type>1</type>
 			<location>C:/Users/NATALIA E/Desktop/frogger/ramen.png</location>
 		</link>
+		<link>
+			<name>res/Sheets/Objects/clouds.png</name>
+			<type>1</type>
+			<location>C:/Users/NATALIA E/Desktop/frogger/clouds.png</location>
+		</link>
+		<link>
+			<name>res/Sheets/Objects/letter.png</name>
+			<type>1</type>
+			<location>C:/Users/NATALIA E/Desktop/frogger/letter.png</location>
+		</link>
+		<link>
+			<name>res/Sheets/Objects/moon.png</name>
+			<type>1</type>
+			<location>C:/Users/NATALIA E/Desktop/frogger/moon.png</location>
+		</link>
+		<link>
+			<name>res/Sheets/Objects/planet.png</name>
+			<type>1</type>
+			<location>C:/Users/NATALIA E/Desktop/frogger/planet.png</location>
+		</link>
+		<link>
+			<name>res/Sheets/Objects/spaceship.png</name>
+			<type>1</type>
+			<location>C:/Users/NATALIA E/Desktop/frogger/spaceship.png</location>
+		</link>
 	</linkedResources>
 </projectDescription>

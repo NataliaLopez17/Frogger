@@ -57,10 +57,15 @@ public class GameOverState extends State {
     @Override
     public void render(Graphics g) {
         g.drawImage(Images.gameOver,0,0,handler.getGame().getWidth(),handler.getGame().getHeight(),null);
+        g.drawImage(Images.letter,50,200,200,200,null);
+        g.drawImage(Images.clouds,230,100,300,150,null);
+        g.drawImage(Images.planet,10,450,250,200,null);
+        g.drawImage(Images.moon,370,420,200,200,null);
+        g.drawImage(Images.spaceShip,0,0,300,300,null);
         uiManager.Render(g);
-        //g.setFont(new Font("Cooper Black", Font.BOLD, 20));
-		//g.setColor(Color.BLUE);
-		//g.drawString("Score " + player.score, 450, 50);
+        g.setFont(new Font("Script MT Bold", Font.BOLD, 40));
+		g.setColor(Color.BLACK);
+		g.drawString("Score " + Player.score, 300, 180);
 
     }
 }

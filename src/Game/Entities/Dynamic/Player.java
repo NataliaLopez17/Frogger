@@ -25,7 +25,7 @@ public class Player extends EntityBase {
 	
 	public String facing = "UP";
 	public Boolean moving = false;
-	public int score = 0;
+	public static int score = 0;
 	public Boolean scoreMove = true;
 	
 	
@@ -213,8 +213,8 @@ public class Player extends EntityBase {
 			break;
 		}
 		
-		g.setFont(new Font("Cooper Black", Font.BOLD, 20));
-		g.setColor(Color.BLUE);
+		g.setFont(new Font("Script MT Bold", Font.BOLD, 30));
+		g.setColor(Color.BLACK);
 		g.drawString("Score " + score, 450, 50);
 		UpdatePlayerRectangle(g);
 

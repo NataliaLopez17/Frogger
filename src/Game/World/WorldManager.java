@@ -211,14 +211,14 @@ public class WorldManager {
 			}
 
 			//DEATH ON WATER CODE
+
 			/**
 			if((randomArea instanceof WaterArea)) {
-				if(!(SpawnedHazards.get(i) instanceof LillyPad && SpawnedHazards.get(i).GetCollision().intersects(player.getPlayerCollision()))) {
-					if ((player.getY() >= SpawnedAreas.get(i).yPosition) && (player.getY() <= SpawnedAreas.get(i).yPosition + 64)) {
-						State.setState(handler.getGame().gameOverState);
-					}
+				if ((player.getY() >= SpawnedAreas.get(i).yPosition) && (player.getY() <= SpawnedAreas.get(i).yPosition + 64)) {
+					State.setState(handler.getGame().gameOverState);
 				}
-			}**/
+			}
+			**/
 
 
 
@@ -230,25 +230,12 @@ public class WorldManager {
 
 					if(player.facing.equals("UP")) {
 						player.moving = false;
-
-						if(player.moving == false && (handler.getKeyManager().keyJustPressed(KeyEvent.VK_S) && player.facing.equals("DOWN"))) {
-							System.out.println(1);
-							player.moving = true;
-						}
-
-
 						player.scoreMove = true;
 
 						if(player.scoreMove == true) {
-							player.score = player.score * 1;
+							Player.score = Player.score * 1;
 						}
 						player.scoreMove = false;
-
-
-
-
-
-
 
 					}
 
@@ -258,7 +245,7 @@ public class WorldManager {
 						player.scoreMove = true;
 
 						if(player.scoreMove == true) {
-							player.score = player.score * 1;
+							Player.score = Player.score * 1;
 						}
 
 						player.scoreMove = false;
