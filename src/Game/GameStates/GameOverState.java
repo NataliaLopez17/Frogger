@@ -7,11 +7,14 @@ import UI.UIManager;
 
 import java.awt.*;
 
+import Game.Entities.Dynamic.Player;
+
 /**
  * Created by AlexVR on 7/1/2018.
  */
 public class GameOverState extends State {
 
+	public Player player;
     private int count = 0;
     private UIManager uiManager;
 
@@ -23,12 +26,12 @@ public class GameOverState extends State {
         /*
          * Adds a button that by being pressed changes the State
          */
-        uiManager.addObjects(new UIImageButton(33, handler.getGame().getHeight() - 150, 230, 64, Images.restart, () -> {
+        uiManager.addObjects(new UIImageButton(160, handler.getGame().getHeight() - 250, 230, 64, Images.restart, () -> {
             handler.getMouseManager().setUimanager(null);
             State.setState(handler.getGame().gameState);
         }));
 
-        uiManager.addObjects(new UIImageButton(33 + 250,  handler.getGame().getHeight() - 150, 170, 64, Images.newTitle, () -> {
+        uiManager.addObjects(new UIImageButton(33 + 150,  handler.getGame().getHeight() - 150, 170, 64, Images.newTitle, () -> {
             handler.getMouseManager().setUimanager(null);
             State.setState(handler.getGame().menuState);
         }));
@@ -55,6 +58,9 @@ public class GameOverState extends State {
     public void render(Graphics g) {
         g.drawImage(Images.gameOver,0,0,handler.getGame().getWidth(),handler.getGame().getHeight(),null);
         uiManager.Render(g);
+        //g.setFont(new Font("Cooper Black", Font.BOLD, 20));
+		//g.setColor(Color.BLUE);
+		//g.drawString("Score " + player.score, 450, 50);
 
     }
 }

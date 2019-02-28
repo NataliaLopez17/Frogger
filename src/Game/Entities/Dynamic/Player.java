@@ -1,5 +1,7 @@
 package Game.Entities.Dynamic;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -7,6 +9,7 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 import Game.Entities.EntityBase;
+import Game.World.WorldManager;
 import Main.Handler;
 import Resources.Images;
 
@@ -22,6 +25,8 @@ public class Player extends EntityBase {
 	
 	public String facing = "UP";
 	public Boolean moving = false;
+	public int score = 0;
+	public Boolean scoreMove = true;
 	
 	
 	private int moveCoolDown = 0;
@@ -68,8 +73,14 @@ public class Player extends EntityBase {
 
 		///////////////// MOVE UP///////////////
 		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_W) && !moving && facing.equals("UP")) {
-
 			moving = true;
+			
+			
+			if(scoreMove == true) {
+				score++;
+			}
+			
+			
 		} 
 		else if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_W) && !moving && !facing.equals("UP")) {
 			if (facing.equals("DOWN")) {
@@ -105,6 +116,11 @@ public class Player extends EntityBase {
 		///////////////// MOVE DOWN///////////////
 		else if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_S) && !moving && facing.equals("DOWN")) {
 			moving = true;
+			
+			if(scoreMove == true) {
+				score--;
+			}
+			
 		} else if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_S) && !moving && !facing.equals("DOWN")) {
 			reGrid();
 			if (facing.equals("RIGHT")) {
@@ -176,7 +192,7 @@ public class Player extends EntityBase {
 
 	@Override
 	public void render(Graphics g) {
-
+		
 		if (index >= 8) {
 			index = 0;
 			moving = false;
@@ -196,7 +212,10 @@ public class Player extends EntityBase {
 			g.drawImage(rotateClockwise90(Images.Player[index]), getX(), getY(), -1 * getWidth(), getHeight(), null);
 			break;
 		}
-
+		
+		g.setFont(new Font("Cooper Black", Font.BOLD, 20));
+		g.setColor(Color.BLUE);
+		g.drawString("Score " + score, 450, 50);
 		UpdatePlayerRectangle(g);
 
 	}

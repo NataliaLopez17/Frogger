@@ -39,8 +39,6 @@ public class WorldManager {
 	private Player player;									// How do we find the frog coordinates? How do we find the Collisions? This bad boy.
 
 
-	//public WaterArea water;
-
 	UIManager object = new UIManager(handler);
 	UI.UIManager.Vector object2 = object.new Vector();
 
@@ -170,26 +168,6 @@ public class WorldManager {
 				State.setState(handler.getGame().gameOverState);
 			}
 
-			
-			
-			//DEATH ON WATER CODE
-			
-			/**
-			if((SpawnedAreas.get(i) instanceof WaterArea)) {
-				for (int j = 0; j < SpawnedHazards.size(); j++) {
-					if(!(SpawnedHazards.get(j) instanceof LillyPad)) {
-						if ((player.getY() >= SpawnedAreas.get(i).yPosition) && (player.getY() <= SpawnedAreas.get(i).yPosition + 64)) {
-							State.setState(handler.getGame().gameOverState);
-						}
-					}
-				}
-			}
-			**/
-			
-			
-			
-			
-			
 		}
 
 		HazardMovement();
@@ -203,6 +181,10 @@ public class WorldManager {
 	}
 
 	private void HazardMovement() {
+
+		Random rand = new Random();
+		BaseArea randomArea = AreasAvailables.get(rand.nextInt(AreasAvailables.size()));
+
 
 		for (int i = 0; i < SpawnedHazards.size(); i++) {
 
@@ -226,8 +208,17 @@ public class WorldManager {
 			// if hazard has passed the screen height, then remove this hazard.
 			if (SpawnedHazards.get(i).getY() > handler.getHeight()) {
 				SpawnedHazards.remove(i);
-
 			}
+
+			//DEATH ON WATER CODE
+			/**
+			if((randomArea instanceof WaterArea)) {
+				if(!(SpawnedHazards.get(i) instanceof LillyPad && SpawnedHazards.get(i).GetCollision().intersects(player.getPlayerCollision()))) {
+					if ((player.getY() >= SpawnedAreas.get(i).yPosition) && (player.getY() <= SpawnedAreas.get(i).yPosition + 64)) {
+						State.setState(handler.getGame().gameOverState);
+					}
+				}
+			}**/
 
 
 
@@ -239,10 +230,38 @@ public class WorldManager {
 
 					if(player.facing.equals("UP")) {
 						player.moving = false;
+
+						if(player.moving == false && (handler.getKeyManager().keyJustPressed(KeyEvent.VK_S) && player.facing.equals("DOWN"))) {
+							System.out.println(1);
+							player.moving = true;
+						}
+
+
+						player.scoreMove = true;
+
+						if(player.scoreMove == true) {
+							player.score = player.score * 1;
+						}
+						player.scoreMove = false;
+
+
+
+
+
+
+
 					}
 
 					if(player.facing.equals("DOWN")) {
 						player.moving = false;
+
+						player.scoreMove = true;
+
+						if(player.scoreMove == true) {
+							player.score = player.score * 1;
+						}
+
+						player.scoreMove = false;
 					}
 
 					if(player.facing.equals("LEFT")) {
@@ -255,6 +274,7 @@ public class WorldManager {
 
 				}
 			}
+
 
 
 
