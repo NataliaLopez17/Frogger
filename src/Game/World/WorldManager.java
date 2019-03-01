@@ -50,6 +50,8 @@ public class WorldManager {
 
 	private boolean lillySpawn;
 
+	private boolean logSpawn = false;
+
 
 	public WorldManager(Handler handler) {
 		this.handler = handler;
@@ -168,6 +170,27 @@ public class WorldManager {
 				State.setState(handler.getGame().gameOverState);
 			}
 
+
+			//DEATH ON WATER CODE
+
+			if((SpawnedAreas.get(i) instanceof WaterArea)) {
+				if ((player.getY()  >= SpawnedAreas.get(i).getYPosition()) && (player.getY() <= SpawnedAreas.get(i).getYPosition() + 64)) {
+					State.setState(handler.getGame().gameOverState);
+				}
+			}
+
+			else if ((SpawnedAreas.get(i) instanceof WaterArea)) {
+				for(int j = 0; j < SpawnedHazards.size(); j++) {
+					if(SpawnedHazards.get(j) instanceof LillyPad || SpawnedHazards.get(j) instanceof Log || SpawnedHazards.get(j) instanceof Turtle)
+					if(player.getPlayerCollision().intersects(SpawnedHazards.get(j).GetCollision())) {
+						player.moving = true;
+					}
+				}
+			}
+
+
+
+
 		}
 
 		HazardMovement();
@@ -182,10 +205,6 @@ public class WorldManager {
 
 	private void HazardMovement() {
 
-		Random rand = new Random();
-		BaseArea randomArea = AreasAvailables.get(rand.nextInt(AreasAvailables.size()));
-
-
 		for (int i = 0; i < SpawnedHazards.size(); i++) {
 
 			// Moves hazard down
@@ -193,14 +212,14 @@ public class WorldManager {
 
 			// Moves Log or Turtle to the right
 			if (SpawnedHazards.get(i) instanceof Log || SpawnedHazards.get(i) instanceof Turtle) {
-				SpawnedHazards.get(i).setX(SpawnedHazards.get(i).getX() + 1);
+				SpawnedHazards.get(i).setX(SpawnedHazards.get(i).getX() - 1);
 
 				// Verifies the hazards Rectangles aren't null and
 				// If the player Rectangle intersects with the Log or Turtle Rectangle, then
 				// move player to the right.
 				if (SpawnedHazards.get(i).GetCollision() != null
 						&& player.getPlayerCollision().intersects(SpawnedHazards.get(i).GetCollision())) {
-					player.setX(player.getX() + 1);
+					player.setX(player.getX() - 1);
 				}
 
 			}
@@ -210,16 +229,13 @@ public class WorldManager {
 				SpawnedHazards.remove(i);
 			}
 
-			//DEATH ON WATER CODE
-
-			/**
-			if((randomArea instanceof WaterArea)) {
-				if ((player.getY() >= SpawnedAreas.get(i).yPosition) && (player.getY() <= SpawnedAreas.get(i).yPosition + 64)) {
-					State.setState(handler.getGame().gameOverState);
+			if(SpawnedHazards.get(i) instanceof Turtle || SpawnedHazards.get(i) instanceof Log) {
+				if (SpawnedHazards.get(i).getX()<0) { 
+					SpawnedHazards.add(new Turtle(handler, handler.getWidth(), SpawnedHazards.get(i).getY()));
+					SpawnedHazards.add(new Log(handler, handler.getWidth(), SpawnedHazards.get(i).getY()));
+					SpawnedHazards.remove(i);	
 				}
 			}
-			**/
-
 
 
 
@@ -310,10 +326,17 @@ public class WorldManager {
 			randomArea = new WaterArea(handler, yPosition);
 			SpawnHazard(yPosition);
 
-
-
 			randInt = 64 * rand.nextInt(8);
 			SpawnedHazards.add(new LillyPad(handler, randInt, yPosition));
+
+
+			randInt = 130 * rand.nextInt(10);
+			SpawnedHazards.add(new Turtle(handler, randInt, yPosition));
+
+
+			randInt = 128 * rand.nextInt(10);
+			SpawnedHazards.add(new Log(handler, randInt, yPosition));
+
 
 			lillySpawn = true;
 
@@ -334,7 +357,7 @@ public class WorldManager {
 		int choice = rand.nextInt(7);
 		// Chooses between Log or Lillypad
 		if (choice <=2) {
-			randInt = 64 * rand.nextInt(4);
+			randInt = 128 * rand.nextInt(10);
 			SpawnedHazards.add(new Log(handler, randInt, yPosition));
 		}
 		else if (choice >=5){
@@ -342,7 +365,7 @@ public class WorldManager {
 			SpawnedHazards.add(new LillyPad(handler, randInt, yPosition));
 		}
 		else {
-			randInt = 64 * rand.nextInt(3);
+			randInt = 130 * rand.nextInt(10);
 			SpawnedHazards.add(new Turtle(handler, randInt, yPosition));
 		}
 

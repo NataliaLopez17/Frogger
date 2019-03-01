@@ -1,6 +1,7 @@
 package Game.World;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 import Main.Handler;
 
@@ -35,4 +36,8 @@ public class BaseArea {
     public void setYPosition(int position) {
     	this.yPosition = position;
     }
+    
+    public Rectangle GetCollision() {
+		return new Rectangle();
+	}
 }
